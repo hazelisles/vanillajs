@@ -12,13 +12,21 @@ body {
 
 #title h1 {
   color: white;
-  font-family: "Balsamiq Sans", Verdana, sans-serif;
 }
 
 section {
   margin: 0 !important;
 }
 
-.card-text {
+.text-font {
   font-family: "Akaya Telivigala", Verdana, sans-serif;
+}
+
+.heading {
+  font-family: "Balsamiq Sans", Verdana, sans-serif;
+}
+
+#color-main {
+  height: 95vh;
+  width: 100%;
 }
