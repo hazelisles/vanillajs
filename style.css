@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Akaya+Telivigala&family=Balsamiq+Sans&display=swap");
+
+body {
+  width: 100%;
+}
+
+#title {
+  width: 100%;
+  height: 30vh;
+  background-color: black;
+}
+
+#title h1 {
+  color: white;
+  font-family: "Balsamiq Sans", Verdana, sans-serif;
+}
+
+section {
+  margin: 0 !important;
+}
+
+.card-text {
+  font-family: "Akaya Telivigala", Verdana, sans-serif;
+}
