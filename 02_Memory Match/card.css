@@ -1,0 +1,19 @@
+.card {
+  flex: 7% 0 1;
+  height: 8vw;
+  border: 2px solid #e0e0e0;
+}
+
+.card img {
+  max-width: 30%;
+  align-self: center;
+}
+
+.card p {
+  margin: 3px 6px;
+  font-size: 15px;
+}
+
+.card p:last-child {
+  transform: rotate(180deg);
+}
