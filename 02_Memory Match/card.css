@@ -19,3 +19,8 @@
 .card p:last-child {
   transform: rotate(180deg);
 }
+
+.back {
+  background: url("cardback.jpg");
+  background-size: cover;
+}

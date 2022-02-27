@@ -26,13 +26,30 @@ const view = {
     board.innerHTML = utility.getRandomOrderArray(52).map(i => this.getCardElement(i)).join("");
   },
   getCardElement(index) {
+    return `
+    <div class="card d-flex flex-column justify-content-around back" data-index="${index}"></div>`
+  },
+  getCardContent(index) {
     const deck = utility.newDeck();
     return `
-    <div class="card d-flex flex-column justify-content-around">
       <p>${deck[index].num}</p>
       <img src="${deck[index].symbol}" alt="">
       <p>${deck[index].num}</p>
-    </div>`
+    `
+  },
+  flipCard(card) {
+    if (card.classList.contains("back")) {
+      card.classList.remove("back");
+      card.innerHTML = this.getCardContent(Number(card.dataset.index));
+    } else {
+      card.classList.add("back");
+      card.innerHTML = null;
+    }
   }
 }
 view.displayCards();
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("click", event => {
+    view.flipCard(card);
+  })
+})
