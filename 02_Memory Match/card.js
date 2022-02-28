@@ -1,3 +1,11 @@
+const GAME_STATES = {
+  FirstCardAwaits: "FirstCardAwaits",
+  SecondCardAwaits: "SecondCardAwaits",
+  CardsMatched: "CardsMatched",
+  CardsUnmatched: "CardsUnmatched",
+  GameFinished: "GameFinished"
+}
+
 const utility = {
   newDeck() {
     const numbers = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
@@ -20,17 +28,23 @@ const utility = {
     return array;
   }
 }
+
+const model = {
+  deck: utility.newDeck(),
+  tempCards: [],
+}
+
 const view = {
-  displayCards() {
+  displayCards(cardArray) {
     const board = document.getElementById("cards");
-    board.innerHTML = utility.getRandomOrderArray(52).map(i => this.getCardElement(i)).join("");
+    board.innerHTML = cardArray.map(i => this.getCardElement(i)).join("");
   },
   getCardElement(index) {
     return `
-    <div class="card d-flex flex-column justify-content-around back" data-index="${index}"></div>`
+    <div class="card d-flex flex-column justify-content-around back" data-index="${index}"></div>` // HTML data attribute
   },
   getCardContent(index) {
-    const deck = utility.newDeck();
+    const deck = model.deck;
     return `
       <p>${deck[index].num}</p>
       <img src="${deck[index].symbol}" alt="">
@@ -47,9 +61,37 @@ const view = {
     }
   }
 }
-view.displayCards();
+
+const controller = {
+  currentState: GAME_STATES.FirstCardAwaits,
+
+  generateCards() {
+    view.displayCards(utility.getRandomOrderArray(52))
+  },
+  assignCardAction(card) {
+    if (!card.classList.contains("back")) return;
+    switch (this.currentState) {
+      case GAME_STATES.FirstCardAwaits:
+        view.flipCard(card);
+        model.tempCards.push(card);
+        this.currentState = GAME_STATES.SecondCardAwaits;
+        break;
+      case GAME_STATES.SecondCardAwaits:
+        view.flipCard(card);
+        model.tempCards.push(card);
+        // check match or not
+        break
+      case GAME_STATES.CardsMatched:
+      case GAME_STATES.CardsUnmatched:
+      case GAME_STATES.GameFinished:
+    }
+  }
+}
+
+controller.generateCards();
+// add event listener to every cards
 document.querySelectorAll(".card").forEach(card => {
   card.addEventListener("click", event => {
-    view.flipCard(card);
+    controller.assignCardAction(card);
   })
 })
